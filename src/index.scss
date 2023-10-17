@@ -17,6 +17,8 @@ main {
   overflow-y: hidden;
 }
 
+// Sidebar style (check ) 
+
 .dropdown-toggle {
   outline: 0;
 }
@@ -67,4 +69,12 @@ main {
 
 .scrollarea {
   overflow-y: auto;
+}
+
+// Custom fixes
+
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
 }
