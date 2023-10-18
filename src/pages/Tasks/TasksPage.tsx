@@ -1,22 +1,23 @@
 import { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Task } from "../../domain/task";
 
 export const TasksPage = () => {
   const [newTask, setNewTask] = useState('');
-  const [tasks, setTasks] = useState<any>([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const doneTasks = tasks.filter((task: any) => task.done);
   const todoTasks = tasks.filter((task: any) => !task.done);
 
   const addTask = () => {
     if (newTask) {
-      setTasks((tasks: any[]) => [...tasks, { id: tasks.length + 1, name: newTask, done: false }]);
+      setTasks((tasks: Task[]) => [...tasks, { id: tasks.length + 1, description: newTask, done: false }]);
       setNewTask('');
     }
   }
 
   const checkTask = (id: number) => {
-    setTasks((tasks: any[]) => tasks.map((task: any) => task.id === id ? { ...task, done: !task.done } : task));
+    setTasks((tasks: Task[]) => tasks.map((task: Task) => task.id === id ? { ...task, done: !task.done } : task));
   }
 
   const handleDragEnd = (result: any) => {
@@ -61,72 +62,77 @@ export const TasksPage = () => {
       </div>
 
       {/* todo list */}
-      <div className="row mb-4">
-        <div className="col">
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <table className="table">
-              <thead className="table-dark ">
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">to do</th>
-                </tr>
-              </thead>
-              <Droppable droppableId="droppable">
-                {(provided) => (
-                  <tbody ref={provided.innerRef} {...provided.droppableProps}>
-                    {todoTasks.map((task: any, index: number) => (
-                      <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
-                        {(provided) => (
-                          <tr
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                          >
-                            <td className="fit">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                value={task.done}
-                                onChange={() => checkTask(task.id)}
-                              />
-                            </td>
-                            <td>{task.name}</td>
-                          </tr>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </tbody>
-                )}
-              </Droppable>
-            </table>
-          </DragDropContext>
+      {todoTasks.length > 0 && (
+        <div className="row mb-4">
+          <div className="col">
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <table className="table">
+                <thead className="table-dark ">
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">to do</th>
+                  </tr>
+                </thead>
+                <Droppable droppableId="droppable">
+                  {(provided) => (
+                    <tbody ref={provided.innerRef} {...provided.droppableProps}>
+                      {todoTasks.map((task: any, index: number) => (
+                        <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
+                          {(provided) => (
+                            <tr
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <td className="fit">
+                                <input
+                                  type="checkbox"
+                                  className="form-check-input"
+                                  value={task.done}
+                                  onChange={() => checkTask(task.id)}
+                                />
+                              </td>
+                              <td>{task.name}</td>
+                            </tr>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </tbody>
+                  )}
+                </Droppable>
+              </table>
+            </DragDropContext>
+          </div>
         </div>
-      </div>
+      )}
+
 
       {/* done list */}
-      <div className="row mb-4">
-        <div className="col">
-          <table className="table">
-            <thead className="table-success ">
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">done</th>
-              </tr>
-            </thead>
-            <tbody>
-              {doneTasks.map((task: any) => (
-                <tr key={task.id} className="text-decoration-line-through">
-                  <td className="fit">
-                    <input type="checkbox" className="form-check-input" defaultChecked={true} />
-                  </td>
-                  <td>{task.name}</td>
+      {doneTasks.length > 0 && (
+        <div className="row mb-4">
+          <div className="col">
+            <table className="table">
+              <thead className="table-success ">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">done</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {doneTasks.map((task: any) => (
+                  <tr key={task.id} className="text-decoration-line-through">
+                    <td className="fit">
+                      <input type="checkbox" className="form-check-input" defaultChecked={true} />
+                    </td>
+                    <td>{task.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      )}
 
     </div>
   )

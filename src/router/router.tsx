@@ -54,4 +54,8 @@ export const router = createBrowserRouter([
     children: routes,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/stream-layer",
+    element: <StreamPage />
+  }
 ]);
