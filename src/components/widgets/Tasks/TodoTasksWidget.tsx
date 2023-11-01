@@ -22,7 +22,7 @@ export const TodoTasksWidget = (props: TodoTasksWidgetProps) => {
     <div className="card text-bg-light mb-3" style={{ maxWidth: WIDGET_WIDTH, top, left, right, bottom }}>
       <div className="card-body">
         {tasks.map(task => (
-          <div className="row">
+          <div className="row" key={task.id}>
             <div className="col d-flex flex-row">
               <div className="form-check fs-4">
                 <input className="form-check-input" type="checkbox" readOnly={true} defaultChecked={task.done} />
