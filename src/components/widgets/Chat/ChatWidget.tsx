@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { ChatBubble } from "./ChatBubble"
+// @ts-ignore
 import tmi from "tmi.js";
 
 const WIDGET_WIDTH = 500
@@ -30,10 +31,11 @@ export const ChatWidget = (props: ChatWidgetProps) => {
   }
 
   useEffect(() => {
-    client.on("message", (channel: any, tags: any, message: any, self: any) => {
+    // @ts-ignore
+    client.on("message", (channel: any, tags: any, message: any) => {
       addMessage({
         id: tags["tmi-sent-ts"] + Math.random().toString(),
-        username: tags.username,
+        username: tags["display-name"],
         message
       });
     })
@@ -47,7 +49,6 @@ export const ChatWidget = (props: ChatWidgetProps) => {
 
   return (
     <>
-      <button onClick={addMessage}>Agregar</button>
       <div className="d-flex flex-column justify-content-end align-items-start" style={{ height: 540, maxWidth: WIDGET_WIDTH, top, left, right, bottom, position: 'absolute' }}>
         {messages.map((message: any) => (
           <ChatBubble

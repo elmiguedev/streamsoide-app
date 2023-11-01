@@ -5,8 +5,8 @@ import "./style.scss";
 
 export const StreamPage = () => {
   const streamConfig = {
-    showCurrenTask: true,
-    showTodoList: true,
+    showCurrenTask: false,
+    showTodoList: false,
     showChat: true
   }
 
