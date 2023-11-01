@@ -12,12 +12,12 @@ import { ChatPage } from "../pages/Chat/ChatPage";
 export const routes = [
   {
     name: "Dashboard",
-    path: "/",
+    path: "",
     element: <DashboardPage />
   },
   {
     name: "Messages",
-    path: "/messages",
+    path: "messages",
     element: <MessagesPage />
   },
   {
@@ -27,7 +27,7 @@ export const routes = [
   },
   {
     name: "Tasks",
-    path: "/tasks",
+    path: "tasks",
     element: <TasksPage />
   },
   {
@@ -42,20 +42,20 @@ export const routes = [
   },
   {
     name: "Stream",
-    path: "/stream",
+    path: "stream",
     element: <StreamPage />
   },
 ]
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <App />,
     children: routes,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/stream-layer",
+    path: "stream-layer",
     element: <StreamPage />
   }
 ]);
