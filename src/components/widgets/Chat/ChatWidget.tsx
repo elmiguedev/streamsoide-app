@@ -17,7 +17,7 @@ export const ChatWidget = (props: ChatWidgetProps) => {
   const { left, top, bottom, right } = props
   const [messages, setMessages] = useState<any[]>([]);
   const [client] = useState(new tmi.client({
-    channels: ["iamcristinini"],
+    channels: ["elmiguedev"],
 
   }));
 
